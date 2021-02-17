@@ -1,107 +1,87 @@
-import typing
-from datetime import datetime, time
-from urllib.parse import urlunsplit
+__all__ = [
+    "random_integer",
+    "random_float",
+    "random_numeric",
+    "random_bignumeric",
+    "random_boolean",
+    "random_string",
+    "random_bytes",
+    "random_date",
+    "random_datetime",
+    "random_time",
+    "random_timestamp",
+    "random_geography",
+    "random_struct",
+    "random_record",
+]
+
+import base64
+from datetime import datetime
 from uuid import uuid4
 
-import requests
 from numpy import random
 
-from datasyn.settings import DATCAT_HOST, DATCAT_PORT, DATCAT_SCHEME
-
-DATCAT_NETLOC = f"{DATCAT_HOST}:{DATCAT_PORT}"
+MIN_INT, MAX_INT = -9223372036854775808, 9223372036854775808
 
 
-class SyntheticEvent:
-    # TODO: add random struct
-    def __init__(self):
-        self._new = {}
-
-    @property
-    def new(self):
-        return self._new
-
-    @new.setter
-    def new(self, schema: typing.List[typing.Dict[str, str]]):
-        for field in schema:
-            field_type = field["type"].lower()
-            random_value = self.type_callable_mapping[field_type]
-            self._new[field["name"]] = random_value()
-
-    @property
-    def type_callable_mapping(self) -> typing.Dict[str, callable]:
-        return {
-            "integer": self.random_integer,
-            "float": self.random_float,
-            "numeric": self.random_numeric,
-            "bignumeric": self.random_bignumeric,
-            "boolean": self.random_boolean,
-            "string": self.random_string,
-            "bytes": self.random_bytes,
-            "date": self.random_date,
-            "datetime": self.random_datetime,
-            "time": self.random_time,
-            "timestamp": self.random_timestamp,
-            "geography": self.random_geography,
-        }
-
-    def random_integer(self) -> int:
-        return random.randint(-9223372036854775808, 9223372036854775808)
-
-    def random_float(self) -> float:
-        return random.uniform(-9223372036854775808, 9223372036854775808)
-
-    def random_numeric(self) -> float:
-        # TODO: precision and scale
-        return random.uniform(-9223372036854775808, 9223372036854775808)
-
-    def random_bignumeric(self) -> float:
-        # TODO: precision and scale
-        return random.uniform(-9223372036854775808, 9223372036854775808)
-
-    def random_boolean(self) -> bool:
-        return f"{random.choice([True, False])}"
-
-    def random_string(self) -> str:
-        return str(uuid4())
-
-    def random_bytes(self) -> bytes:
-        return random.bytes(16)
-
-    def random_date(self) -> datetime:
-        return datetime.date(datetime.now())
-
-    def random_datetime(self) -> datetime:
-        return datetime.now()
-
-    def random_time(self) -> time:
-        return datetime.time(datetime.now())
-
-    def random_timestamp(self) -> float:
-        return float(datetime.timestamp(datetime.now()))
-
-    def random_geography(self) -> str:
-        longitude = random.randint(-180, 180)
-        latitude = random.randint(-90, 90)
-        return f"ST_GEOGPOINT({longitude}, {latitude})"
+def random_integer() -> int:
+    return random.randint(MIN_INT, MAX_INT)
 
 
-def produce_synthetic_events():
-    url_components = (DATCAT_SCHEME, DATCAT_NETLOC, "/schemas", "", "")
-    url = urlunsplit(url_components)
-    response = requests.get(url=url)
-    response.raise_for_status()
-    schemas = response.json()
-
-    for _, schema in schemas.items():
-        se = SyntheticEvent()
-        se.new = schema
-        print(se.new)
-        breakpoint()
+def random_float() -> float:
+    return random.uniform(MIN_INT, MAX_INT)
 
 
-def main():
-    produce_synthetic_events()
+def random_numeric() -> float:
+    # TODO: precision and scale
+    return random.uniform(MIN_INT, MAX_INT)
 
 
-if __name__ == "__main__":
-    main()
+def random_bignumeric() -> float:
+    # TODO: precision and scale
+    return random.uniform(MIN_INT, MAX_INT)
+
+
+def random_boolean() -> str:
+    return f"{random.choice([True, False])}".lower()
+
+
+def random_string() -> str:
+    return str(uuid4())
+
+
+def random_bytes() -> bytes:
+    encoded = base64.b64encode(random.bytes(16))
+    return encoded.decode("ascii")
+
+
+def random_date() -> str:
+    return str(datetime.date(datetime.now()))
+
+
+def random_datetime() -> str:
+    return str(datetime.now())
+
+
+def random_time() -> str:
+    return str(datetime.time(datetime.now()))
+
+
+def random_timestamp() -> float:
+    return float(datetime.timestamp(datetime.now()))
+
+
+def random_geography() -> str:
+    longitude = random.randint(-180, 180)
+    latitude = random.randint(-90, 90)
+    return f"POINT({longitude} {latitude})"
+
+
+def random_struct() -> str:
+    # TODO: decide whether to support legacy sql
+    return ""
+
+
+def random_record() -> str:
+    # TODO: decide whether to support legacy sql
+    return ""
