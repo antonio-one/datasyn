@@ -6,7 +6,12 @@ authors = ["Antonio <antonio.one@pm.me>"]
 license = "TBC"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = ">=3.8,<3.10"
+google-cloud-pubsub = "^2.3.0"
+python-decouple = "^3.4"
+google-cloud-bigquery = "^2.8.0"
+numpy = "^1.20.1"
+pydantic = "^1.7.3"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.10.0"
