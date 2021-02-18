@@ -47,6 +47,8 @@ def synthetic_event(schema: typing.List[typing.Dict[str, str]]):
     for field in schema:
         field_type = field["type"].lower()
         random_value = TYPE_CALLABLE_MAPPING[field_type]
+        if random_value is None:
+            raise ValueError(f"{random_value=} is not valid.")
         output[field["name"]] = random_value()
     return output
 
