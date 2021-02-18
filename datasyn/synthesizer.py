@@ -62,7 +62,7 @@ def produce_synthetic_events(number_of_messages: int):
 
     output = []
     while number_of_messages > 0:
-        for _, schema in schemas.items():
+        for schema in schemas.values():
             output.append(synthetic_event(schema=schema))
             number_of_messages -= 1
     return output
