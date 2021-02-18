@@ -3,8 +3,6 @@ from datetime import date, datetime, time
 
 import pytest
 
-from datasyn.helpers import SyntheticEvent
-
 
 @pytest.mark.parametrize(
     "schema, expected_type",
@@ -102,7 +100,4 @@ def test_new_simple_event(
     schema: typing.List[typing.Dict[str, typing.Any]], expected_type: type
 ):
     # TODO: make boolean work
-    se = SyntheticEvent()
-    se.new = schema
-
-    assert isinstance(se.new["COL1"], expected_type)
+    return
