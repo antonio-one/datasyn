@@ -42,8 +42,9 @@ def random_bignumeric() -> float:
     return random.uniform(MIN_INT, MAX_INT)
 
 
-def random_boolean() -> str:
-    return f"{random.choice([True, False])}".lower()
+def random_boolean() -> bool:
+    # https://stackoverflow.com/questions/58408054/typeerror-object-of-type-bool-is-not-json-serializable
+    return bool(random.choice([True, False]))
 
 
 def random_string() -> str:
