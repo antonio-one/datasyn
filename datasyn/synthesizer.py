@@ -23,9 +23,10 @@ from datasyn.helpers import (
 from datasyn.settings import DATCAT_HOST, DATCAT_PORT, DATCAT_SCHEME
 
 DATCAT_NETLOC = f"{DATCAT_HOST}:{DATCAT_PORT}"
-URL_COMPONENTS = (DATCAT_SCHEME, DATCAT_NETLOC, "/schemas", "", "")
-URL = urlunsplit(URL_COMPONENTS)
-TYPE_CALLABLE_MAPPING = {
+SCHEMA_URL_COMPONENTS = (DATCAT_SCHEME, DATCAT_NETLOC, "/schemas", "", "")
+SCHEMA_URL = urlunsplit(SCHEMA_URL_COMPONENTS)
+
+TYPE_TO_CALLABLE = {
     "integer": random_integer,
     "float": random_float,
     "numeric": random_numeric,
@@ -42,30 +43,52 @@ TYPE_CALLABLE_MAPPING = {
 }
 
 
-def synthetic_event(schema: typing.List[typing.Dict[str, str]]):
-    output = {}
-    for field in schema:
+def synthetic_event(
+    schema_class: str, schema_version: int, fields: typing.List[typing.Dict[str, str]]
+):
+    se = {}
+
+    for field in fields:
         field_type = field["type"].lower()
-        random_value = TYPE_CALLABLE_MAPPING[field_type]
+        random_value = TYPE_TO_CALLABLE[field_type]
+
         if random_value is None:
             raise ValueError(f"{random_value=} is not valid.")
-        output[field["name"]] = random_value()
-    return output
+        if field["name"] == "event_datetime":
+            se[field["name"]] = random_datetime()
+        elif field["name"] == "event_name":
+            se[field["name"]] = schema_class
+        elif field["name"] == "event_version":
+            se[field["name"]] = schema_version
+        else:
+            se[field["name"]] = random_value()
+    return se
 
 
 def produce_synthetic_events(number_of_messages: int):
-    response = requests.get(url=URL)
+
+    response = requests.get(url=SCHEMA_URL)
     response.raise_for_status()
     schemas = response.json()
     if schemas == {}:
         raise InvalidSchema
 
-    output = []
-    while number_of_messages > 0:
-        for schema in schemas.values():
-            output.append(synthetic_event(schema=schema))
+    records = []
+    while True:
+
+        for schema_name, fields in schemas.items():
+
+            schema_class, schema_version = schema_name.split("_v")
+            record = synthetic_event(
+                schema_class=schema_class,
+                schema_version=int(schema_version),
+                fields=fields,
+            )
+            records.append(record)
+
             number_of_messages -= 1
-    return output
+            if number_of_messages <= 0:
+                return records
 
 
 @click.command()
