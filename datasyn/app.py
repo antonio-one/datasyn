@@ -8,7 +8,7 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    return RedirectResponse("/synthesizer/0")
+    return RedirectResponse("/synthesizer/1")
 
 
 @app.get("/synthesizer/{number_of_messages}")
