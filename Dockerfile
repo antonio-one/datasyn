@@ -27,4 +27,4 @@ ADD .env ./
 
 RUN pip3 install ${APPDIR}/${WHEEL}
 
-ENTRYPOINT ["uvicorn", "--host", "0.0.0.0", "--port", "8081", "datasyn.app:app"]
+ENTRYPOINT ["uvicorn", "--host", "0.0.0.0", "--port", "8081", "datasyn.entrypoints.app:app"]

@@ -5,7 +5,7 @@ from urllib.parse import urlunsplit
 import requests
 from google.cloud import pubsub_v1
 
-from datasyn import synthesizer
+from datasyn.service_layer import synthesizer
 from datasyn.settings import (
     DATCAT_HOST,
     DATCAT_PORT,

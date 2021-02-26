@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 
-from datasyn.synthesizer import produce_synthetic_events
+from datasyn.service_layer.synthesizer import produce_synthetic_events
 
 app = FastAPI()
 

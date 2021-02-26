@@ -1,0 +1,116 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.25.1
+    method: GET
+    uri: http://datcat:50000/
+  response:
+    body:
+      string: '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+        <title>Redirecting...</title>
+
+        <h1>Redirecting...</h1>
+
+        <p>You should be redirected automatically to target URL: <a href="/schemas?refresh=True">/schemas?refresh=True</a>.  If
+        not click the link.'
+    headers:
+      Content-Length:
+      - '249'
+      Content-Type:
+      - text/html; charset=utf-8
+      Date:
+      - Fri, 26 Feb 2021 19:35:36 GMT
+      Location:
+      - http://datcat:50000/schemas?refresh=True
+      Server:
+      - Werkzeug/1.0.1 Python/3.8.8
+    status:
+      code: 302
+      message: FOUND
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.25.1
+    method: GET
+    uri: http://datcat:50000/schemas?refresh=True
+  response:
+    body:
+      string: "{\n  \"login_v1\": [\n    {\n      \"description\": \"\", \n      \"mode\":
+        \"REQUIRED\", \n      \"name\": \"event_timestamp\", \n      \"type\": \"TIMESTAMP\"\n
+        \   }, \n    {\n      \"description\": \"\", \n      \"mode\": \"REQUIRED\",
+        \n      \"name\": \"event_name\", \n      \"type\": \"STRING\"\n    }, \n
+        \   {\n      \"description\": \"\", \n      \"mode\": \"REQUIRED\", \n      \"name\":
+        \"event_version\", \n      \"type\": \"INTEGER\"\n    }, \n    {\n      \"description\":
+        \"\", \n      \"mode\": \"REQUIRED\", \n      \"name\": \"col_1\", \n      \"type\":
+        \"INTEGER\"\n    }, \n    {\n      \"description\": \"{\\\"partition\\\":
+        true}\", \n      \"mode\": \"REQUIRED\", \n      \"name\": \"date\", \n      \"type\":
+        \"DATE\"\n    }\n  ], \n  \"notfound_v1\": [\n    {\n      \"description\":
+        \"\", \n      \"mode\": \"REQUIRED\", \n      \"name\": \"event_timestamp\",
+        \n      \"type\": \"TIMESTAMP\"\n    }, \n    {\n      \"description\": \"\",
+        \n      \"mode\": \"REQUIRED\", \n      \"name\": \"event_name\", \n      \"type\":
+        \"STRING\"\n    }, \n    {\n      \"description\": \"\", \n      \"mode\":
+        \"REQUIRED\", \n      \"name\": \"event_version\", \n      \"type\": \"INTEGER\"\n
+        \   }, \n    {\n      \"description\": \"\", \n      \"mode\": \"REQUIRED\",
+        \n      \"name\": \"col_1\", \n      \"type\": \"INTEGER\"\n    }, \n    {\n
+        \     \"description\": \"\", \n      \"mode\": \"REQUIRED\", \n      \"name\":
+        \"col_2\", \n      \"type\": \"BOOLEAN\"\n    }, \n    {\n      \"description\":
+        \"\", \n      \"mode\": \"REQUIRED\", \n      \"name\": \"col_3\", \n      \"type\":
+        \"FLOAT\"\n    }, \n    {\n      \"description\": \"{\\\"partition\\\": true}\",
+        \n      \"mode\": \"REQUIRED\", \n      \"name\": \"date\", \n      \"type\":
+        \"DATE\"\n    }\n  ], \n  \"pageview_v1\": [\n    {\n      \"description\":
+        \"\", \n      \"mode\": \"REQUIRED\", \n      \"name\": \"event_timestamp\",
+        \n      \"type\": \"TIMESTAMP\"\n    }, \n    {\n      \"description\": \"\",
+        \n      \"mode\": \"REQUIRED\", \n      \"name\": \"event_name\", \n      \"type\":
+        \"STRING\"\n    }, \n    {\n      \"description\": \"\", \n      \"mode\":
+        \"REQUIRED\", \n      \"name\": \"event_version\", \n      \"type\": \"INTEGER\"\n
+        \   }, \n    {\n      \"description\": \"\", \n      \"mode\": \"REQUIRED\",
+        \n      \"name\": \"col_1\", \n      \"type\": \"INTEGER\"\n    }, \n    {\n
+        \     \"description\": \"\", \n      \"mode\": \"REQUIRED\", \n      \"name\":
+        \"col_2\", \n      \"type\": \"BOOLEAN\"\n    }, \n    {\n      \"description\":
+        \"{\\\"partition\\\": true}\", \n      \"mode\": \"REQUIRED\", \n      \"name\":
+        \"date\", \n      \"type\": \"DATE\"\n    }\n  ], \n  \"registration_v1\":
+        [\n    {\n      \"description\": \"\", \n      \"mode\": \"REQUIRED\", \n
+        \     \"name\": \"event_timestamp\", \n      \"type\": \"TIMESTAMP\"\n    },
+        \n    {\n      \"description\": \"\", \n      \"mode\": \"REQUIRED\", \n      \"name\":
+        \"event_name\", \n      \"type\": \"STRING\"\n    }, \n    {\n      \"description\":
+        \"\", \n      \"mode\": \"REQUIRED\", \n      \"name\": \"event_version\",
+        \n      \"type\": \"INTEGER\"\n    }, \n    {\n      \"description\": \"\",
+        \n      \"mode\": \"REQUIRED\", \n      \"name\": \"col_1\", \n      \"type\":
+        \"INTEGER\"\n    }, \n    {\n      \"description\": \"\", \n      \"mode\":
+        \"REQUIRED\", \n      \"name\": \"col_2\", \n      \"type\": \"BOOLEAN\"\n
+        \   }, \n    {\n      \"description\": \"{\\\"pii\\\": true}\", \n      \"mode\":
+        \"REQUIRED\", \n      \"name\": \"col_3\", \n      \"type\": \"STRING\"\n
+        \   }, \n    {\n      \"description\": \"{\\\"pii\\\": true}\", \n      \"mode\":
+        \"REQUIRED\", \n      \"name\": \"col_4\", \n      \"type\": \"STRING\"\n
+        \   }, \n    {\n      \"description\": \"{\\\"partition\\\": true}\", \n      \"mode\":
+        \"REQUIRED\", \n      \"name\": \"date\", \n      \"type\": \"DATE\"\n    }\n
+        \ ]\n}\n"
+    headers:
+      Content-Length:
+      - '3275'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 26 Feb 2021 19:35:36 GMT
+      Server:
+      - Werkzeug/1.0.1 Python/3.8.8
+    status:
+      code: 200
+      message: OK
+version: 1

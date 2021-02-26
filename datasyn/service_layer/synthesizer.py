@@ -65,9 +65,9 @@ def synthetic_event(
     return se
 
 
-def produce_synthetic_events(number_of_messages: int):
+def produce_synthetic_events(schema_url: str = SCHEMA_URL, number_of_messages: int = 1):
 
-    response = requests.get(url=SCHEMA_URL)
+    response = requests.get(url=schema_url)
     response.raise_for_status()
     schemas = response.json()
     if schemas == {}:
@@ -93,13 +93,14 @@ def produce_synthetic_events(number_of_messages: int):
 
 
 @click.command()
+@click.option("--schema-url", default=SCHEMA_URL, help="The url of the data catalogue")
 @click.option(
     "--number-of-messages",
     default=100,
     help="The number of synthetic messages a single request will return",
 )
-def main(number_of_messages: int):
-    produce_synthetic_events(number_of_messages)
+def main(schema_url: str, number_of_messages: int):
+    produce_synthetic_events(schema_url, number_of_messages)
 
 
 if __name__ == "__main__":

@@ -2,4 +2,10 @@
 env =
     CLOUD_PROJECT_ID=your_project_id
     LOCATION=EU
-    GOOGLE_APPLICATION_CREDENTIALS=path/to/secret
+    GOOGLE_APPLICATION_CREDENTIALS=.path/to/secret.json
+    DATCAT_URL=http://datcat:50000
+    DATASYN_URL=http://datasyn:50002
+
+markers =
+    slow: marks a test as slow
+    fast: marks a test as fast

@@ -51,7 +51,7 @@ def random_string() -> str:
     return str(uuid4())
 
 
-def random_bytes() -> bytes:
+def random_bytes() -> str:
     encoded = base64.b64encode(random.bytes(16))
     return encoded.decode("ascii")
 
