@@ -74,6 +74,7 @@ def produce_synthetic_events(number_of_messages: int):
         raise InvalidSchema
 
     records = []
+    count = 0
     while True:
 
         for schema_name, fields in schemas.items():
@@ -86,8 +87,8 @@ def produce_synthetic_events(number_of_messages: int):
             )
             records.append(record)
 
-            number_of_messages -= 1
-            if number_of_messages <= 0:
+            count += 1
+            if count == number_of_messages:
                 return records
 
 
