@@ -16,7 +16,8 @@ __all__ = [
 ]
 
 import base64
-from datetime import datetime
+from datetime import date
+from time import time
 from uuid import uuid4
 
 from numpy import random
@@ -57,19 +58,19 @@ def random_bytes() -> str:
 
 
 def random_date() -> str:
-    return str(datetime.date(datetime.now()))
+    return str(date.today())
 
 
 def random_datetime() -> str:
-    return str(datetime.now())
+    return str(time())
 
 
 def random_time() -> str:
-    return str(datetime.time(datetime.now()))
+    return str(time())
 
 
 def random_timestamp() -> float:
-    return float(datetime.timestamp(datetime.now()))
+    return float(date.today())
 
 
 def random_geography() -> str:
