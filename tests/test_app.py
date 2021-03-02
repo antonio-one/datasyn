@@ -26,7 +26,9 @@ SCHEMA_URL = getenv("DATCAT_URL")
 @pytest.mark.fast
 @vcr.use_cassette("tests/vcr_cassettes/test_synthetic_messages.yaml")
 def test_synthetic_messages():
-    messages = produce_synthetic_events(schema_url=SCHEMA_URL, number_of_messages=11)
+    messages = produce_synthetic_events(
+        schema_catalogue_url=SCHEMA_URL, number_of_messages=11
+    )
     expected_number_of_messages = 11
     assert len(messages) == expected_number_of_messages
 

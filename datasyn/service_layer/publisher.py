@@ -2,6 +2,7 @@ import json
 from os import environ
 from urllib.parse import urlunsplit
 
+import click
 import requests
 from google.cloud import pubsub_v1
 
@@ -33,16 +34,37 @@ def callback(future):
     print(message_id)
 
 
-def publish():
+@click.command()
+@click.option(
+    "--number-of-messages",
+    default=10,
+    help="The number of synthetic messages a single request will publish",
+)
+@click.option(
+    "--schema",
+    help="A specific schema to use. Leave empty for a random selection from all schemas.",
+)
+def publish(number_of_messages: int, schema: str):
     response = requests.get(url=MAPPING_URL)
     mappings = response.json()
 
-    for record in synthesizer.produce_synthetic_events(number_of_messages=1000):
+    if schema:
+        mappings = {schema: mappings[schema]}
+
+    for record in synthesizer.produce_synthetic_events(
+        number_of_messages=number_of_messages, schema=schema
+    ):
+
         topic = f'{record["event_name"]}_v{record["event_version"]}'
         topic_id = mappings[topic]["topic_name"]
         topic_path = publisher.topic_path(PROJECT_ID, topic_id)
         data = json.dumps(record).encode("utf-8")
+
         future = publisher.publish(topic_path, data)
         future.add_done_callback(callback)
 
     print(f"Published messages with error handler to {topic_path}")
+
+
+if __name__ == "__main__":
+    publish()
