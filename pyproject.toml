@@ -16,7 +16,7 @@ click = "^7.1.2"
 fastapi = {extras = ["all"], version = "^0.63.0"}
 
 [tool.poetry.dev-dependencies]
-pre-commit = "^2.10.0"
+pre-commit = "^2.11.0"
 pytest = "^6.2.2"
 pytest-cov = "^2.11.1"
 pytest-env = "^0.6.2"
