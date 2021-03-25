@@ -70,7 +70,7 @@ def random_time() -> str:
 
 
 def random_timestamp() -> float:
-    return float(date.today())
+    return float(time())
 
 
 def random_geography() -> str:
