@@ -23,7 +23,7 @@ from datasyn.helpers import (
 from datasyn.settings import DATCAT_HOST, DATCAT_PORT, DATCAT_SCHEME
 
 DATCAT_NETLOC = f"{DATCAT_HOST}:{DATCAT_PORT}"
-SCHEMA_URL_COMPONENTS = (DATCAT_SCHEME, DATCAT_NETLOC, "/schemas", "", "")
+SCHEMA_URL_COMPONENTS = (DATCAT_SCHEME, DATCAT_NETLOC, "v1/datcat/schemas/list/refresh/true", "", "")
 SCHEMA_CATALOGUE_URL = urlunsplit(SCHEMA_URL_COMPONENTS)
 
 TYPE_TO_CALLABLE = {

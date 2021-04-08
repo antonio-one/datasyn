@@ -18,7 +18,7 @@ from datasyn.settings import (
 environ["GOOGLE_APPLICATION_CREDENTIALS"] = GOOGLE_APPLICATION_CREDENTIALS
 
 DATCAT_NETLOC = f"{DATCAT_HOST}:{DATCAT_PORT}"
-MAPPING_URL_COMPONENTS = (DATCAT_SCHEME, DATCAT_NETLOC, "/mappings", "", "")
+MAPPING_URL_COMPONENTS = (DATCAT_SCHEME, DATCAT_NETLOC, "v1/datcat/mappings/list/refresh/true", "", "")
 MAPPING_URL = urlunsplit(MAPPING_URL_COMPONENTS)
 
 batch_settings = pubsub_v1.types.BatchSettings(
