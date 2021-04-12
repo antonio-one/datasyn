@@ -19,9 +19,13 @@ import base64
 from datetime import datetime
 from uuid import uuid4
 
+from faker import Faker
 from numpy import random
+from fuzzywuzzy import fuzz
 
 MIN_INT, MAX_INT = -9223372036854775808, 9223372036854775808
+
+fake = Faker(locale="en_US")
 
 
 def random_integer() -> int:
@@ -47,8 +51,22 @@ def random_boolean() -> bool:
     return bool(random.choice([True, False]))
 
 
-def random_string() -> str:
-    return str(uuid4())
+def random_string(column_name: str = None) -> str:
+    fuzziness_threshold = 75
+    if column_name is None:
+        return fake.text(max_nb_chars=1024)
+    if fuzz.ratio("home address", column_name) > fuzziness_threshold:
+        return fake.address()
+    elif fuzz.ratio("email", column_name) > fuzziness_threshold:
+        return fake.email()
+    elif fuzz.ratio("first name", column_name) > fuzziness_threshold:
+        return fake.first_name_nonbinary()
+    elif fuzz.ratio("last name", column_name) > fuzziness_threshold:
+        return fake.last_name_nonbinary()
+    elif fuzz.ratio("_id", column_name) > fuzziness_threshold:
+        return str(uuid4())
+    else:
+        return fake.text(max_nb_chars=1024)
 
 
 def random_bytes() -> str:

@@ -50,7 +50,11 @@ def synthetic_event(
 
     for field in fields:
         field_type = field["type"].lower()
-        random_value = TYPE_TO_CALLABLE[field_type]
+        _callable = TYPE_TO_CALLABLE[field_type]
+        if field_type == "string":
+            random_value = _callable(column_name=field["name"])
+        else:
+            random_value = _callable()
 
         if random_value is None:
             raise ValueError(f"{random_value=} is not valid.")
@@ -61,7 +65,7 @@ def synthetic_event(
         elif field["name"] == "event_version":
             se[field["name"]] = schema_version
         else:
-            se[field["name"]] = random_value()
+            se[field["name"]] = random_value
     return se
 
 
