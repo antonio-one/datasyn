@@ -18,7 +18,7 @@ Faker = "^8.0.0"
 fuzzywuzzy = "^0.18.0"
 
 [tool.poetry.dev-dependencies]
-pre-commit = "^2.10.0"
+pre-commit = "^2.13.0"
 pytest = "^6.2.2"
 pytest-cov = "^2.11.1"
 pytest-env = "^0.6.2"
